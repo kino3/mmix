@@ -1,2 +1,2 @@
 # mmix
-Knuth's MMIX Assembly code
+Knuth's [MMIX](http://mmix.cs.hm.edu/) Assembly code
