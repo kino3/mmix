@@ -1,5 +1,5 @@
 %%% nabeatsu (like fizzbuzz)
-max 	IS	100
+max 	IS	200
 t	IS	$255
 num	GREG	0
 ahonum	GREG	0
@@ -30,7 +30,7 @@ Main	SET	num,1
 2H	LDA	t,NewLn
 	TRAP	0,Fputs,StdOut
 	INCL	num,1
-	CMP	end,num,max
+	CMPU	end,num,max
 	BNP	end,0B
 %% End of Main Loop
 	TRAP	0,Halt,0
