@@ -21,33 +21,32 @@ Main	SET	num,1
 	LDA	t,Title
 	TRAP	0,Fputs,StdOut
 % Main Loop
-2H	JMP	4F
-3H	INCL	num,1
+0H	JMP	3F % print n
+1H	LDA	t,NewLn
+	TRAP	0,Fputs,StdOut
+	INCL	num,1
 	CMP	end,num,max
-	BNP	end,2B
+	BNP	end,0B
 % End Program
 	TRAP	0,Halt,0
 % Printing and Check 3
-4H	SET	ahonum,num
-0H	GREG	#2020202000000000
-	STOU	0B,BUF
+3H	SET	ahonum,num
+4H	GREG	#2020202000000000
+	STOU	4B,BUF
 	LDA	t,BUF+4
-1H	DIV	ahonum,ahonum,10
+5H	DIV	ahonum,ahonum,10
 	GET	r,rR
 	INCL	r,'0'
 	STBU	r,t,0
 	SUB	t,t,1
-	PBNZ	ahonum,1B
+	PBNZ	ahonum,5B
 	LDA	t,BUF
 	TRAP	0,Fputs,StdOut
 	SET	ahonum,num
 	DIV	q,ahonum,3
 	GET	r,rR
-	BZ	r,5F
-6H	LDA	t,NewLn
+	BZ	r,6F
+	JMP	1B
+6H	LDA	t,AHO
 	TRAP	0,Fputs,StdOut
-	JMP	3B
-5H	SET	mul3,1
-	LDA	t,AHO
-	TRAP	0,Fputs,StdOut
-	JMP	6B
+	JMP	1B
