@@ -7,6 +7,8 @@ q	GREG	0
 r	GREG	0
 end	GREG	0
 is3	GREG	0
+isChar3	GREG	0
+
 	LOC	Data_Segment
 	GREG	@
 BUF	OCTA	0
@@ -14,13 +16,15 @@ Title	BYTE	"multiples of 3 or occurences of 3"
 NewLn	BYTE	#a,0
 DEBUG	BYTE	"debug"
 AHO	BYTE	" aho" 
+
 	LOC	#100
 	GREG	@
 Main	SET	num,1
 	LDA	t,Title
 	TRAP	0,Fputs,StdOut
 % Main Loop
-0H	JMP	3F % print n
+0H      SET	is3,0
+	JMP	3F
 1H	BNZ	is3,6F
 2H	LDA	t,NewLn
 	TRAP	0,Fputs,StdOut
@@ -29,6 +33,8 @@ Main	SET	num,1
 	BNP	end,0B
 % End Program
 	TRAP	0,Halt,0
+
+% subroutines
 % Printing and Check 3
 3H	SET	ahonum,num
 4H	GREG	#2020202000000000
@@ -36,7 +42,9 @@ Main	SET	num,1
 	LDA	t,BUF+4
 5H	DIV	ahonum,ahonum,10
 	GET	r,rR
-	INCL	r,'0'
+	CMP	isChar3,r,3
+	CSZ	is3,isChar3,1
+7H	INCL	r,'0'
 	STBU	r,t,0
 	SUB	t,t,1
 	PBNZ	ahonum,5B
@@ -45,8 +53,7 @@ Main	SET	num,1
 	SET	ahonum,num
 	DIV	q,ahonum,3
 	GET	r,rR
-	PBNZ	r,2B
-	SET	is3,1
+	CSZ	is3,r,1
 	JMP	1B
 6H	LDA	t,AHO
 	TRAP	0,Fputs,StdOut
