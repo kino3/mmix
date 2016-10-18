@@ -6,8 +6,7 @@ ahonum	GREG	0
 q	GREG	0
 r	GREG	0
 end	GREG	0
-mul3	GREG	0
-occ3	GREG	0
+is3	GREG	0
 	LOC	Data_Segment
 	GREG	@
 BUF	OCTA	0
@@ -22,7 +21,8 @@ Main	SET	num,1
 	TRAP	0,Fputs,StdOut
 % Main Loop
 0H	JMP	3F % print n
-1H	LDA	t,NewLn
+1H	BNZ	is3,6F
+2H	LDA	t,NewLn
 	TRAP	0,Fputs,StdOut
 	INCL	num,1
 	CMP	end,num,max
@@ -45,8 +45,9 @@ Main	SET	num,1
 	SET	ahonum,num
 	DIV	q,ahonum,3
 	GET	r,rR
-	BZ	r,6F
+	PBNZ	r,2B
+	SET	is3,1
 	JMP	1B
 6H	LDA	t,AHO
 	TRAP	0,Fputs,StdOut
-	JMP	1B
+	JMP	2B
