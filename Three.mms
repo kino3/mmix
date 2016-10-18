@@ -1,4 +1,4 @@
-% nabeatsu (like fizzbuzz)
+%%% nabeatsu (like fizzbuzz)
 max 	IS	100
 t	IS	$255
 num	GREG	0
@@ -17,12 +17,13 @@ NewLn	BYTE	#a,0
 DEBUG	BYTE	"debug"
 AHO	BYTE	" aho" 
 
+%%% Main Program
 	LOC	#100
 	GREG	@
 Main	SET	num,1
 	LDA	t,Title
 	TRAP	0,Fputs,StdOut
-% Main Loop
+%% Main Loop
 0H      SET	is3,0
 	JMP	3F
 1H	BNZ	is3,6F
@@ -31,11 +32,12 @@ Main	SET	num,1
 	INCL	num,1
 	CMP	end,num,max
 	BNP	end,0B
-% End Program
+%% End of Main Loop
 	TRAP	0,Halt,0
+%%% End of Main Program
 
-% subroutines
-% Printing and Check 3
+%%% subroutines
+%% Printing and Check 3
 3H	SET	ahonum,num
 4H	GREG	#2020202000000000
 	STOU	4B,BUF
@@ -55,6 +57,7 @@ Main	SET	num,1
 	GET	r,rR
 	CSZ	is3,r,1
 	JMP	1B
+%% Print additional string
 6H	LDA	t,AHO
 	TRAP	0,Fputs,StdOut
 	JMP	2B
