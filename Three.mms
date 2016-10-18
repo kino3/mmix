@@ -1,5 +1,5 @@
 %%% nabeatsu (like fizzbuzz)
-max 	IS	200
+max 	GREG	4000
 t	IS	$255
 num	GREG	0
 ahonum	GREG	0
